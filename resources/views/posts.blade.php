@@ -22,7 +22,7 @@
                     <a href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
                     <small>
                         By
-                        <a href="/posts?author={{ $post->user->name }}">{{ $post->user->name }}</a>
+                        <a href="/posts?author={{ $post->user->username }}">{{ $post->user->name }}</a>
                         In
                         <a href="/posts?category={{ $post->category->slug }}">{{ ucwords($post->category->name) }}</a>
                     </small>

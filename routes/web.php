@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,11 @@ Route::controller(PostController::class)->group(function () {
 Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::redirect('/author', '/posts');
+
+
+Route::get('/login', [LoginController::class, 'index']);
+
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/register', 'index');
+    Route::post('/register', 'store');
+});
