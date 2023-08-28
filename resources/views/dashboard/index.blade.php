@@ -1,5 +1,5 @@
-@extends('layouts.main')
+@extends('dashboard.layouts.main')
 
-@section('container')
-    <h1>Selamat datang, {{ auth()->user()->name }}</h1>
+@section('header')
+    <h1 class="h2">Welcome back, {{ auth()->user()->name }}</h1>
 @endsection
