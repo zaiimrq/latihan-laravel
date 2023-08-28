@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
@@ -41,15 +42,14 @@ Route::redirect('/author', '/posts');
 
 
 Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'index');
+    Route::get('/register', 'index')->middleware('guest');
     Route::post('/register', 'store');
 });
 
 Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'index');
+    Route::get('/login', 'index')->middleware('guest')->name('login');
     Route::post('/login', 'authenticate');
+    Route::post('/logout', 'logout')->middleware('auth');
 });
 
-Route::get('/dashboard', function() {
-    return "login berhasil";
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
