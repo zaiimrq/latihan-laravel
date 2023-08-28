@@ -39,9 +39,17 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::redirect('/author', '/posts');
 
 
-Route::get('/login', [LoginController::class, 'index']);
 
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'index');
     Route::post('/register', 'store');
+});
+
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index');
+    Route::post('/login', 'authenticate');
+});
+
+Route::get('/dashboard', function() {
+    return "login berhasil";
 });
