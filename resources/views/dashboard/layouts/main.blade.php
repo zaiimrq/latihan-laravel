@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- choose one -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
     <style>
       .bd-placeholder-img {
@@ -160,6 +163,9 @@
   </div>
 </div>
 
+<script>
+  feather.replace();
+</script>
 <script src="/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

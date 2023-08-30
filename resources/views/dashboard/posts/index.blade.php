@@ -21,7 +21,11 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $post->title }}</td>
                 <td>{{ $post->category->name }}</td>
-                <td>view</td>
+                <td>
+                    <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-info"><i data-feather="eye"></i></a>
+                    <a href="" class="badge bg-warning"><i data-feather="edit"></i></a>
+                    <a href="" class="badge bg-danger"><i data-feather="trash-2"></i></a>
+                </td>
             </tr>
         @endforeach
       </tbody>
