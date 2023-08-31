@@ -11,7 +11,6 @@
     <!-- choose one -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -85,12 +84,11 @@
         z-index: 1500;
       }
     </style>
-
-    
     <!-- Custom styles for this template -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/dist/css/dashboard.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -163,6 +161,16 @@
   </div>
 </div>
 
+
+<script>
+  $(document).ready(function () {
+    $("#title").on("change", function () {
+        var title = $(this).val();
+        var slug = title.toLowerCase().replace(/\s+/g, '-');
+        $("#slug").val(slug);
+    })
+  });
+</script>
 <script>
   feather.replace();
 </script>
