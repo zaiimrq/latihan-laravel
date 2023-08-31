@@ -89,6 +89,16 @@
     <!-- Custom styles for this template -->
     <link href="/dist/css/dashboard.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- trix editor --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+    {{-- hilangin fitur upload file trix editor --}}
+    <style>
+      trix-toolbar [data-trix-button-group="file-tools"] {
+        display: none;
+      }
+    </style>
+
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -160,18 +170,10 @@
     </main>
   </div>
 </div>
-
-
 <script>
-  $(document).ready(function () {
-    $("#title").on("change", function () {
-        var title = $(this).val();
-        var slug = title.toLowerCase().replace(/\s+/g, '-');
-        $("#slug").val(slug);
-    })
+  document.addEventListener('trix-file-accept', function (e) {
+    e.preventDefault();
   });
-</script>
-<script>
   feather.replace();
 </script>
 <script src="/dist/js/bootstrap.bundle.min.js"></script>
