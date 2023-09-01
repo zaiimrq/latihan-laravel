@@ -16,7 +16,7 @@ class DashboardPostController extends Controller
     public function index()
     {
         return view('dashboard.posts.index', [
-            "posts" => Post::where('user_id', auth()->user()->id)->latest()->get()
+            "posts" => Post::where('user_id', auth()->user()->getAuthIdentifier())->latest()->get()
         ]);
     }
 
@@ -26,7 +26,7 @@ class DashboardPostController extends Controller
     public function create()
     {
         return view('dashboard.posts.create', [
-            "categories" => Category::all()
+            "categories" => Category::all(['id', 'name'])
         ]);
     }
 
@@ -42,7 +42,7 @@ class DashboardPostController extends Controller
             "body" => "required"
         ]);
 
-        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['user_id'] = auth()->user()->getAuthIdentifier();
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
         Post::create($validatedData);
@@ -65,7 +65,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.posts.edit', [
+            "post" => $post,
+            "categories" => Category::all(['id', 'name'])
+        ]);
     }
 
     /**
@@ -73,7 +76,24 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $rules = [
+            "title" => "required|max:255",
+            "category_id" => "required",
+            "body" => "required"
+        ];
+
+        if ($request->slug !== $post->slug) {
+            $rules["slug"] = "required|unique:posts";
+        }
+
+        $validatedData = $request->validate($rules);
+        $validatedData['user_id'] = auth()->user()->getAuthIdentifier();
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Post::where('id', $post->id)
+                ->update($validatedData);
+
+        return redirect('/dashboard/posts')->with('success', 'Post has been updated!');
     }
 
     /**
