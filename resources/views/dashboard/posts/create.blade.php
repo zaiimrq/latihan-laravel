@@ -5,7 +5,7 @@
 @endsection
 @section('container')
     <div class="row mb-5">
-        <form action="/dashboard/posts" method="post" class="col-lg-8">
+        <form action="/dashboard/posts" method="post" class="col-lg-8" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -28,6 +28,11 @@
                         @endif
                     @endforeach
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Upload image</label>
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="formFile" name="image">
+                @error('image') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
