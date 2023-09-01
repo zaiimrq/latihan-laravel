@@ -7,7 +7,11 @@
             <div class="mb-3">
                 <a href="/dashboard/posts" class="btn btn-primary"><span data-feather="arrow-left"></span>Back</a>
                 <a href="" class="btn btn-warning"><span data-feather="edit"></span></a>
-                <a href="" class="btn btn-danger"><span data-feather="trash-2"></span></a>
+                <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="badge bg-danger border-0" onclick="return confirm('Apakah anda ingin menghapus post?')"><span data-feather="trash-2"></span></button>
+                  </form>
             </div>
             {!! $post->body !!}
         </div>
