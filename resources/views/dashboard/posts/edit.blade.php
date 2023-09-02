@@ -5,7 +5,7 @@
 @endsection
 @section('container')
     <div class="row mb-5">
-        <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="col-lg-8">
+        <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="col-lg-8" enctype="multipart/form-data">
             @method('put')
             @csrf
             <div class="mb-3">
@@ -31,6 +31,17 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="image" class="form-label">Upload image</label>
+                <input type="hidden" name="oldImage" value="{{ $post->image }}">
+                @if ($post->image)
+                    <img src="{{ asset('storage/'. $post->image) }}" class="preview img-fluid mb-3 col-sm-5 d-block">
+                @else
+                    <img class="preview img-fluid mb-3 col-sm-5">
+                @endif
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="preview()">
+                @error('image') <div class="invalid-feedback"> {{ $message }} </div> @enderror
+            </div>
+            <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
                 @error('body') <p class="text-danger">{{ $message }}</p> @enderror
                 <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
@@ -48,5 +59,19 @@
                 .then(response => response.json())
                 .then(data => slug.value = data.slug)
         });
+
+        function preview()
+        {
+            const preview = document.querySelector(".preview");
+            const image = document.querySelector("#image");
+
+            preview.style.display = "block";
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0]);
+            oFReader.onload = function (oFREvent) {
+                preview.src = oFREvent.target.result;
+            }
+        }
     </script>
 @endsection

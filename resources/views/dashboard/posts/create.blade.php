@@ -30,8 +30,9 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="formFile" class="form-label">Upload image</label>
-                <input class="form-control @error('image') is-invalid @enderror" type="file" id="formFile" name="image">
+                <label for="image" class="form-label">Upload image</label>
+                <img class="preview img-fluid mb-3 col-sm-5">
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="preview()">
                 @error('image') <div class="invalid-feedback"> {{ $message }} </div> @enderror
             </div>
             <div class="mb-3">
@@ -52,5 +53,19 @@
                 .then(response => response.json())
                 .then(data => slug.value = data.slug)
         });
+
+        function preview()
+        {
+            const preview = document.querySelector(".preview");
+            const image = document.querySelector("#image");
+
+            preview.style.display = "block";
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0]);
+            oFReader.onload = function (oFREvent) {
+                preview.src = oFREvent.target.result;
+            }
+        }
     </script>
 @endsection
