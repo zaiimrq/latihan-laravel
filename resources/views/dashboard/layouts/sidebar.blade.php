@@ -19,6 +19,15 @@
             </a>
           </li>
         </ul>
+        @can('is_admin')        
+          <ul class="nav flex-column">
+            <hr>
+            <h6 class="mx-3">Administrator</h6>
+            <li class="nav-item">
+              <a href="/dashboard/categories" class="nav-link d-flex align-items gap-2"><i class="bi bi-grid"></i>Categories</a>
+            </li>
+          </ul>
+        @endcan
 
         <hr class="my-3">
 
